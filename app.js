@@ -351,4 +351,4 @@ function finishSignup(type){
 
 // ===== INIT =====
 renderHome();
-toggleVetFields();
+if($('provType')) toggleVetFields();
