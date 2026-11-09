@@ -1,4 +1,4 @@
-// ===== SPLASH REMOVAL =====
+hi// ===== SPLASH REMOVAL =====
 (function hideSplash(){
   var s = document.getElementById('splash');
   if(!s) return;
@@ -180,7 +180,6 @@ function confirmPay(){
     var log=$('chatLog');
     var receipt=document.createElement('div');
     receipt.className='receipt';
-    receipt.style.cssText='background:#fff;margin:12px 18px;padding:15px;border-radius:16px;border:2px dashed #0e9f5b;';
     receipt.innerHTML='<h4 style="color:#0b7d47;font-size:13px;margin-bottom:8px">📄 Payment Receipt</h4>'+
       '<p style="font-size:12px;color:#555;margin:3px 0">Amount: '+fmt(amount)+'</p>'+
       '<p style="font-size:12px;color:#555;margin:3px 0">For: '+what+'</p>'+
