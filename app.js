@@ -261,9 +261,9 @@ function sendPadi(){
   d.textContent=msg;
   $('padiLog').appendChild(d);
 
-  var thinking=document.createElement('div');
-thinking.className='thinking';
-thinking.innerHTML='<span></span><span></span><span></span>';
+  var thinking = document.createElement('div');
+thinking.style.cssText = 'display:flex; gap:6px; align-items:center; margin:10px 18px;';
+thinking.innerHTML = '<div style="width:8px;height:8px;background:#2b1b5e;border-radius:50%;animation:bounce 1s infinite"></div><div style="width:8px;height:8px;background:#2b1b5e;border-radius:50%;animation:bounce 1s infinite 0.15s"></div><div style="width:8px;height:8px;background:#2b1b5e;border-radius:50%;animation:bounce 1s infinite 0.3s"></div>';
 $('padiLog').appendChild(thinking);
 
   setTimeout(function(){
