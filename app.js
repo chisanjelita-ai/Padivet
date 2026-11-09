@@ -1,18 +1,8 @@
-hi// ===== SPLASH REMOVAL =====
-(function hideSplash(){
+// ===== SPLASH REMOVAL (FORCED) =====
+setTimeout(function(){
   var s = document.getElementById('splash');
-  if(!s) return;
-  var done = false;
-  function kill(){
-    if(done) return; done = true;
-    s.classList.add('hide');
-    setTimeout(function(){ if(s && s.parentNode) s.parentNode.removeChild(s); }, 600);
-  }
-  setTimeout(kill, 2600);
-  setTimeout(kill, 4000);
-  s.addEventListener('click', kill);
-  s.addEventListener('touchstart', kill, {passive:true});
-})();
+  if(s) s.style.display = 'none';
+}, 2600);
 
 // ===== STATE =====
 var $=function(id){return document.getElementById(id);};
@@ -20,7 +10,6 @@ var CUR=DATA[0];
 var FILTER="All";
 var MY_PROVIDER=DATA[2];
 
-// ===== HELPERS =====
 function fmt(n){return "₦"+Number(n).toLocaleString('en-NG');}
 
 function show(id){
@@ -42,7 +31,6 @@ function pill(on){
     : '<div class="pill off"><span class="dot b"></span>Last seen 12 min ago</div>';
 }
 
-// ===== PRICING =====
 function priceLine(p){
   if(p.kind==='vet'){
     return '<div class="plabel">Consultation fee</div><div class="pamount consult">'+fmt(p.price)+'</div>';
@@ -51,7 +39,6 @@ function priceLine(p){
   return '<div class="plabel">'+tag+'</div><div class="pamount goods">From '+fmt(p.price)+'</div>';
 }
 
-// ===== CARD =====
 function card(p){
   return '<div class="card" onclick="openProfile(\''+p.n+'\')">'+
     '<div class="row"><div class="avatar">'+p.n[0]+'</div><div style="flex:1">'+
@@ -64,14 +51,12 @@ function card(p){
 
 function empty(m){return '<div class="empty"><div class="ei">🔍</div><b>'+m+'</b>Try another category or ask Padi to broaden your search.</div>';}
 
-// ===== HOME =====
 function renderHome(){
   var online=DATA.filter(function(p){return p.on;});
   $('homeOnline').innerHTML=online.length?online.map(card).join(''):empty('No one online right now');
   $('homeNear').innerHTML=DATA.slice().sort(function(a,b){return a.d-b.d;}).slice(0,3).map(card).join('');
 }
 
-// ===== RESULTS =====
 function openResults(cat){
   $('resTitle').textContent=cat==='All'?'All providers':cat;
   var list=(cat==='All'?DATA:DATA.filter(function(p){return p.tag===cat;})).slice().sort(function(a,b){return (b.on-a.on)||(b.r-a.r);});
@@ -79,7 +64,6 @@ function openResults(cat){
   show('results');
 }
 
-// ===== BROWSE =====
 function setFilter(cat){
   FILTER=cat;
   document.querySelectorAll('.fchip').forEach(function(c){c.classList.toggle('active',c.dataset.cat===cat);});
@@ -115,7 +99,6 @@ function renderBrowse(){
   }).join('');
 }
 
-// ===== PROFILE =====
 function openProfile(name){
   var p=name?DATA.find(function(x){return x.n===name;}):CUR;
   CUR=p||DATA[0];
@@ -143,27 +126,39 @@ function openProfile(name){
   show('profile');
 }
 
-// ===== CHAT =====
+// ===== CHAT (Styled properly) =====
 function openChat(){
   var isVet=CUR.kind==='vet';
-  var html='<div class="msgrow"><div class="msg them">Hello! How can I help you today?</div></div>';
+  
+  // Using inline styles here to guarantee it looks right even if styles.css fails
+  var bubbleThem = 'display:inline-block;padding:11px 15px;background:#fff;color:#1b1b2b;border-radius:16px 16px 16px 4px;font-size:14px;box-shadow:0 2px 8px rgba(43,27,94,.05);max-width:82%;line-height:1.4;';
+  var bubbleMe = 'display:inline-block;padding:11px 15px;background:#2b1b5e;color:#fff;border-radius:16px 16px 4px 16px;font-size:14px;max-width:82%;line-height:1.4;float:right;';
+  var wrapRow = 'margin:12px 18px;overflow:hidden;';
+  
+  var html = '<div style="'+wrapRow+'"><div style="'+bubbleThem+'">Hello! How can I help you today?</div></div>';
 
   if(isVet){
-    html+='<div class="msgrow"><div class="msg me">My goat has a fever. Consultation fee?</div></div>';
-    html+='<div class="msgrow"><div class="msg them">The consultation fee is '+fmt(CUR.price)+'. Pay to '+CUR.acct+', then tap Pay & Upload Receipt below.</div></div>';
-    html+='<div class="paybox" id="payBox"><h4>💳 Pay consultation fee</h4><div class="what">For: consultation with '+CUR.n+'</div>'+
-      '<div class="acct">Bank: <b>'+CUR.acct.split(' • ')[0]+'</b><br>Account number: <b>'+CUR.acct.split(' • ')[1]+'</b><br>Amount: <b>'+fmt(CUR.price)+'</b></div>'+
-      '<button class="pbtn" onclick="confirmPay()">I\'ve paid — upload receipt</button>'+
-      '<div class="hint">PadiVet doesn\'t handle payments. Money goes directly to the provider. PadiVet doesn\'t issue refunds.</div></div>';
+    html+='<div style="'+wrapRow+'"><div style="'+bubbleMe+'">My goat has a fever. Consultation fee?</div></div>';
+    html+='<div style="'+wrapRow+'"><div style="'+bubbleThem+'">The consultation fee is '+fmt(CUR.price)+'. Pay to '+CUR.acct+', then tap Pay & Upload Receipt below.</div></div>';
+    html+='<div class="paybox" id="payBox" style="background:#fff;margin:14px 18px;padding:16px;border-radius:16px;box-shadow:0 3px 12px rgba(43,27,94,.08);border:1px solid #e7e3f3;">'+
+      '<h4 style="font-size:14px;color:#1b1b2b;margin-bottom:6px;">💳 Pay consultation fee</h4>'+
+      '<div style="font-size:12px;color:#7a7d8a;margin-bottom:12px;font-weight:600;">For: consultation with '+CUR.n+'</div>'+
+      '<div style="background:#faf9fe;border-radius:10px;padding:12px;font-size:13px;color:#1b1b2b;margin-bottom:12px;line-height:1.7;">'+
+      'Bank: <b>'+CUR.acct.split(' • ')[0]+'</b><br>Account: <b>'+CUR.acct.split(' • ')[1]+'</b><br>Amount: <b>'+fmt(CUR.price)+'</b></div>'+
+      '<button style="width:100%;padding:13px;border:none;border-radius:12px;background:#0e9f5b;color:#fff;font-size:14px;font-weight:800;" onclick="confirmPay()">I\'ve paid — upload receipt</button>'+
+      '<div style="font-size:11px;color:#7a7d8a;margin-top:10px;line-height:1.4;">PadiVet doesn\'t handle payments. Money goes directly to the provider. No refunds.</div></div>';
   } else {
     var first=(CUR.listings||[])[0];
     var payLabel=CUR.tag==='Groomers'?'💇 Pay for service':'🛒 Pay for goods';
-    html+='<div class="msgrow"><div class="msg me">Do you have '+first.name.toLowerCase()+'?</div></div>';
-    html+='<div class="msgrow"><div class="msg them">Yes — '+first.name+' is '+fmt(first.p)+'. Payment goes to '+CUR.acct+'. I\'ll confirm once you pay.</div></div>';
-    html+='<div class="paybox" id="payBox"><h4>'+payLabel+'</h4><div class="what">For: '+first.name+' — '+fmt(first.p)+'</div>'+
-      '<div class="acct">Bank: <b>'+CUR.acct.split(' • ')[0]+'</b><br>Account number: <b>'+CUR.acct.split(' • ')[1]+'</b><br>Amount: <b>'+fmt(first.p)+'</b></div>'+
-      '<button class="pbtn" onclick="confirmPay()">I\'ve paid — upload receipt</button>'+
-      '<div class="hint">PadiVet doesn\'t handle payments. Money goes directly to the provider. PadiVet doesn\'t issue refunds.</div></div>';
+    html+='<div style="'+wrapRow+'"><div style="'+bubbleMe+'">Do you have '+first.name.toLowerCase()+'?</div></div>';
+    html+='<div style="'+wrapRow+'"><div style="'+bubbleThem+'">Yes — '+first.name+' is '+fmt(first.p)+'. Payment goes to '+CUR.acct+'. I\'ll confirm once you pay.</div></div>';
+    html+='<div class="paybox" id="payBox" style="background:#fff;margin:14px 18px;padding:16px;border-radius:16px;box-shadow:0 3px 12px rgba(43,27,94,.08);border:1px solid #e7e3f3;">'+
+      '<h4 style="font-size:14px;color:#1b1b2b;margin-bottom:6px;">'+payLabel+'</h4>'+
+      '<div style="font-size:12px;color:#7a7d8a;margin-bottom:12px;font-weight:600;">For: '+first.name+' — '+fmt(first.p)+'</div>'+
+      '<div style="background:#faf9fe;border-radius:10px;padding:12px;font-size:13px;color:#1b1b2b;margin-bottom:12px;line-height:1.7;">'+
+      'Bank: <b>'+CUR.acct.split(' • ')[0]+'</b><br>Account: <b>'+CUR.acct.split(' • ')[1]+'</b><br>Amount: <b>'+fmt(first.p)+'</b></div>'+
+      '<button style="width:100%;padding:13px;border:none;border-radius:12px;background:#0e9f5b;color:#fff;font-size:14px;font-weight:800;" onclick="confirmPay()">I\'ve paid — upload receipt</button>'+
+      '<div style="font-size:11px;color:#7a7d8a;margin-top:10px;line-height:1.4;">PadiVet doesn\'t handle payments. Money goes directly to the provider. No refunds.</div></div>';
   }
   $('chatLog').innerHTML=html;
   show('chat');
@@ -179,7 +174,7 @@ function confirmPay(){
   setTimeout(function(){
     var log=$('chatLog');
     var receipt=document.createElement('div');
-    receipt.className='receipt';
+    receipt.style.cssText='background:#fff;margin:12px 18px;padding:15px;border-radius:16px;border:2px dashed #0e9f5b;box-shadow:0 2px 8px rgba(43,27,94,.05);';
     receipt.innerHTML='<h4 style="color:#0b7d47;font-size:13px;margin-bottom:8px">📄 Payment Receipt</h4>'+
       '<p style="font-size:12px;color:#555;margin:3px 0">Amount: '+fmt(amount)+'</p>'+
       '<p style="font-size:12px;color:#555;margin:3px 0">For: '+what+'</p>'+
@@ -191,7 +186,6 @@ function confirmPay(){
   },700);
 }
 
-// ===== MY LISTINGS =====
 function renderMyListings(){
   $('mlProvName').textContent=MY_PROVIDER.n;
   var rows=(MY_PROVIDER.listings||[]).map(function(l,i){
@@ -246,7 +240,6 @@ function saveListing(){
   show('mylistings');
 }
 
-// ===== PADI =====
 function sendPadi(){
   var input=$('padiText');
   var msg=input.value.trim();
@@ -321,7 +314,6 @@ function sendPadi(){
 
 function quickAsk(m){$('padiText').value=m;sendPadi();}
 
-// ===== SIGN-UP =====
 function startSignup(type){
   if(type==='consumer') show('signup-consumer');
   else show('signup-provider');
