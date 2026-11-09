@@ -11,21 +11,7 @@
 <body>
 <div id="phone">
 
-    <div class="sq-wrap">
-      <div class="sq">
-        <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M50 92c-11 0-20-8-20-18 0-9 8-16 20-16s20 7 20 16c0 10-9 18-20 18z"/>
-          <ellipse cx="28" cy="42" rx="8" ry="11"/>
-          <ellipse cx="44" cy="30" rx="8" ry="12"/>
-          <ellipse cx="62" cy="30" rx="8" ry="12"/>
-          <ellipse cx="78" cy="42" rx="8" ry="11"/>
-        </svg>
-      </div>
-    </div>
-    <div class="brand">PadiVet</div>
-    <div class="tagline">Find your padi. Care for your animals.</div>
-  </div>
-
+  <!-- HOME -->
   <div class="screen active" id="home">
     <div class="top">
       <div class="toprow">
@@ -48,6 +34,7 @@
     <div id="homeNear"></div>
   </div>
 
+  <!-- PADI -->
   <div class="screen" id="padi">
     <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b>Padi</b><div style="font-size:11px;opacity:.8">Your in-app assistant</div></div></div>
     <div id="padiLog" style="padding-bottom:100px;padding-top:6px">
@@ -66,6 +53,7 @@
     </div>
   </div>
 
+  <!-- BROWSE -->
   <div class="screen" id="browse">
     <div class="chathead"><div style="width:20px"></div><div><b>Browse listings</b><div style="font-size:11px;opacity:.8">Products & services from providers</div></div></div>
     <div class="filterrow" id="filterRow">
@@ -78,11 +66,14 @@
     </div>
     <div id="browseList" style="padding:6px 0 20px"></div>
   </div>
+
+  <!-- RESULTS -->
   <div class="screen" id="results">
     <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b id="resTitle">Results</b><div style="font-size:11px;opacity:.8">Online first, then rating</div></div></div>
     <div id="resList" style="padding-top:10px"></div>
   </div>
 
+  <!-- MESSAGES -->
   <div class="screen" id="messages">
     <div class="chathead"><div style="width:20px"></div><div><b>Messages</b><div style="font-size:11px;opacity:.8">Encrypted & private</div></div></div>
     <div class="card" onclick="openProfile('Dr. Chidi Okeke')">
@@ -91,14 +82,9 @@
         <div class="meta">Receipt confirmed ✓ • 2m ago</div>
       </div><div class="pill on"><span class="dot g"></span>Online</div></div>
     </div>
-    <div class="card" onclick="openProfile('GreenField Feeds')">
-      <div class="row"><div class="avatar">G</div><div style="flex:1">
-        <div class="pname">GreenField Feeds</div>
-        <div class="meta">"We deliver to Enugu city…" • 1h ago</div>
-      </div><div class="pill off"><span class="dot b"></span>12m ago</div></div>
-    </div>
   </div>
 
+  <!-- PROFILE -->
   <div class="screen" id="profile">
     <div class="profhead">
       <div class="bigav" id="profAv">C</div>
@@ -114,12 +100,14 @@
     <button class="btn danger" onclick="toast('Report sent to PadiVet admin')">Report a problem</button>
   </div>
 
+  <!-- CHAT -->
   <div class="screen" id="chat">
-    <div class="chathead"><div class="back" onclick="openProfile()">←</div><div><b id="chatName">Dr. Chidi Okeke</b><div style="font-size:11px;opacity:.8" id="chatStatus">🟢 Online</div></div></div>
+    <div class="chathead"><div class="back" onclick="show('profile')">←</div><div><b id="chatName">Dr. Chidi Okeke</b><div style="font-size:11px;opacity:.8" id="chatStatus">🟢 Online</div></div></div>
     <div id="chatLog" style="padding-bottom:120px"></div>
     <div class="inputbar"><input placeholder="Type a message…" onclick="toast('Chat is encrypted and private')"><button onclick="toast('Message sent')">➤</button></div>
   </div>
 
+  <!-- MY LISTINGS -->
   <div class="screen" id="mylistings">
     <div class="chathead"><div class="back" onclick="show('profile')">←</div><div><b>My Listings</b><div style="font-size:11px;opacity:.8">Manage what you sell</div></div></div>
     <div class="provbar">
@@ -132,6 +120,7 @@
     <div id="mlList"></div>
   </div>
 
+  <!-- ADD LISTING -->
   <div class="screen" id="addlisting">
     <div class="chathead"><div class="back" onclick="show('mylistings')">←</div><div><b id="alTitle">Add listing</b></div></div>
     <div class="field"><label>What is it? (product or service name)</label><input id="alName" placeholder="e.g. Layer feed (25kg)"></div>
@@ -149,9 +138,9 @@
       <select id="alStock"><option value="in">In stock / Available</option><option value="out">Out of stock / Unavailable</option></select>
     </div>
     <button class="btn primary" onclick="saveListing()">Save & publish</button>
-    <div style="text-align:center;font-size:11px;color:var(--muted);padding:0 24px 20px">Your listing will appear in Browse and Padi results right away.</div>
   </div>
 
+  <!-- SIGNUP CHOICE -->
   <div class="screen" id="signup-choice">
     <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b>Create account</b></div></div>
     <div class="choose">
@@ -170,16 +159,18 @@
     </div>
   </div>
 
+  <!-- SIGNUP CONSUMER -->
   <div class="screen" id="signup-consumer">
     <div class="chathead"><div class="back" onclick="show('signup-choice')">←</div><div><b>Consumer sign-up</b></div></div>
     <div class="steps"><div class="stepdot on"></div><div class="stepdot on"></div><div class="stepdot"></div></div>
     <div class="field"><label>Full name</label><input placeholder="e.g. Ada Nwosu"></div>
     <div class="field"><label>Email</label><input placeholder="you@email.com"></div>
     <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
-    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location while using the app, so we can show providers near you. You can also type your town instead.</div>
+    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location while using the app, so we can show providers near you.</div>
     <button class="btn primary" onclick="finishSignup('consumer')">Create account</button>
   </div>
 
+  <!-- SIGNUP PROVIDER -->
   <div class="screen" id="signup-provider">
     <div class="chathead"><div class="back" onclick="show('signup-choice')">←</div><div><b>Provider sign-up</b></div></div>
     <div class="steps"><div class="stepdot on"></div><div class="stepdot on"></div><div class="stepdot"></div></div>
@@ -201,13 +192,13 @@
     <div class="field" id="radiusField"><label>Service radius (km, for mobile vets & groomers)</label><input placeholder="e.g. 10"></div>
     <div class="field" id="licenseField"><label>License number (where applicable)</label><input placeholder="e.g. VCN/EN/2024/001"></div>
     <div class="field" id="feeField"><label>Consultation fee (vets only)</label><input placeholder="e.g. 3500"></div>
-    <div class="field" id="listingField"><label>What do you sell? (you can add more after sign-up)</label><textarea rows="2" placeholder="e.g. Layer feed (25kg) — ₦12,000"></textarea></div>
+    <div class="field" id="listingField"><label>What do you sell?</label><textarea rows="2" placeholder="e.g. Layer feed (25kg) — ₦12,000"></textarea></div>
     <div class="field"><label>Payment account (bank • number)</label><input placeholder="GTB • 0123456789"></div>
-    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location so customers can find you by distance. You can also type your town.</div>
+    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location so customers can find you.</div>
     <button class="btn primary" onclick="finishSignup('provider')">Submit for verification</button>
-    <div style="text-align:center;font-size:11px;color:var(--muted);padding:0 24px 20px">Your profile will be reviewed by PadiVet admin before it appears in search.</div>
   </div>
 
+  <!-- SIGNUP SUCCESS -->
   <div class="screen" id="signup-success">
     <div class="success">
       <div class="si" id="succIcon">✓</div>
@@ -217,6 +208,7 @@
     </div>
   </div>
 
+  <!-- BOTTOM NAV -->
   <div class="nav" id="nav">
     <div class="navitem active" data-t="home" onclick="show('home')"><span class="ni">🏠</span>Home</div>
     <div class="navitem" data-t="padi" onclick="show('padi')"><span class="ni">🐾</span>Padi</div>
@@ -227,13 +219,8 @@
 
   <div class="toast" id="toast"></div>
 </div>
+
 <script src="data.js"></script>
 <script src="app.js"></script>
-  <script>
-  setTimeout(function(){
-    var s = document.getElementById('splash');
-    if(s) s.style.display = 'none';
-  }, 3000);
-  </script>
 </body>
-                                                                                 </html>
+        </html>
