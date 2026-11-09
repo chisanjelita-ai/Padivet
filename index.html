@@ -4,8 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PadiVet</title>
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#2b1b5e">
 <style>
   :root{
     --purple:#2b1b5e; --purple-2:#3d2a7a;
@@ -16,7 +14,6 @@
   body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#e9e6f4;display:flex;justify-content:center;}
   #phone{width:100%;max-width:420px;min-height:100vh;background:var(--bg);position:relative;overflow-x:hidden;padding-bottom:70px;}
 
-  /* ===== SPLASH ===== */
   #splash{position:fixed;inset:0;max-width:420px;margin:0 auto;background:linear-gradient(160deg,var(--purple),#1a0e3d);z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:opacity .5s ease,visibility .5s;}
   #splash.hide{opacity:0;visibility:hidden;pointer-events:none;}
 
@@ -253,7 +250,7 @@
       <div class="cat" onclick="openResults('Feeds')"><div class="ico">🌾</div><div class="lbl">Feeds</div></div>
       <div class="cat" onclick="openResults('Vaccines')"><div class="ico">💉</div><div class="lbl">Vaccines</div></div>
       <div class="cat" onclick="openResults('Breeders')"><div class="ico">🐐</div><div class="lbl">Breeders</div></div>
-      <div class="cat" onclick="openResults('All')"><div class="ico">📋</div><div class="lbl">All</div></div>
+      <div class="cat" onclick="openResults('Groomers')"><div class="ico">✂️</div><div class="lbl">Groomers</div></div>
     </div>
     <div class="section">Online now <small>Providers using the app right now</small></div>
     <div id="homeOnline"></div>
@@ -264,12 +261,12 @@
   <div class="screen" id="padi">
     <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b>Padi</b><div style="font-size:11px;opacity:.8">Your in-app assistant</div></div></div>
     <div id="padiLog" style="padding-bottom:100px;padding-top:6px">
-      <div class="bubble">Hi, I'm your Padi — your in-app assistant 🐾 Type what you need — I'll find vets, feed, vaccines and breeders near you by rating, price or distance. I can tell you who's online too.</div>
+      <div class="bubble">Hi, I'm your Padi — your in-app assistant 🐾 Type what you need — I'll find vets, feed, vaccines, breeders and groomers near you by rating, price or distance. I can tell you who's online too.</div>
       <div class="quick">
         <div class="chip" onclick="quickAsk('Best vets near me')">Best vets near me</div>
         <div class="chip" onclick="quickAsk('Who is online now?')">Who's online now?</div>
         <div class="chip" onclick="quickAsk('Feed under 15000')">Feed under ₦15,000</div>
-        <div class="chip" onclick="quickAsk('My goat has a fever, what drug should I give?')">My goat has a fever…</div>
+        <div class="chip" onclick="quickAsk('Groomer near me')">Groomer near me</div>
       </div>
       <div class="mini">Padi helps you find providers in PadiVet. For medical concerns, consult a vet.</div>
     </div>
@@ -287,6 +284,7 @@
       <div class="fchip" data-cat="Vaccines" onclick="setFilter('Vaccines')">Vaccines</div>
       <div class="fchip" data-cat="Breeders" onclick="setFilter('Breeders')">Breeding</div>
       <div class="fchip" data-cat="Vets" onclick="setFilter('Vets')">Vet services</div>
+      <div class="fchip" data-cat="Groomers" onclick="setFilter('Groomers')">Groomers</div>
     </div>
     <div id="browseList" style="padding:6px 0 20px"></div>
   </div>
@@ -297,395 +295,4 @@
   </div>
 
   <div class="screen" id="messages">
-    <div class="chathead"><div style="width:20px"></div><div><b>Messages</b><div style="font-size:11px;opacity:.8">Encrypted & private</div></div></div>
-    <div class="card" onclick="openProfile('Dr. Chidi Okeke')">
-      <div class="row"><div class="avatar">C</div><div style="flex:1">
-        <div class="pname">Dr. Chidi Okeke</div>
-        <div class="meta">Receipt confirmed ✓ • 2m ago</div>
-      </div><div class="pill on"><span class="dot g"></span>Online</div></div>
-    </div>
-    <div class="card" onclick="openProfile('GreenField Feeds')">
-      <div class="row"><div class="avatar">G</div><div style="flex:1">
-        <div class="pname">GreenField Feeds</div>
-        <div class="meta">"We deliver to Enugu city…" • 1h ago</div>
-      </div><div class="pill off"><span class="dot b"></span>12m ago</div></div>
-    </div>
-  </div>
-
-  <div class="screen" id="profile">
-    <div class="profhead">
-      <div class="bigav" id="profAv">C</div>
-      <div style="font-size:20px;font-weight:800" id="profName">Dr. Chidi Okeke</div>
-      <div style="font-size:12px;opacity:.85;margin-top:5px" id="profType">Vet Clinic • Enugu</div>
-      <div class="stars" id="profStars">4.8 ★ (32 reviews) • Replies in ~10 min</div>
-      <div style="font-size:12px;margin-top:10px" id="profStatus">🟢 Online</div>
-    </div>
-    <div id="profPriceBlock"></div>
-    <div class="listitem"><span>Distance</span><span id="profDist">2.3 km away</span></div>
-    <div class="listitem"><span>Payment to</span><span id="profAcct">GTB • 0123456789</span></div>
-    <button class="btn primary" id="profChatBtn" onclick="openChat()">Chat now</button>
-    <button class="btn danger" onclick="toast('Report sent to PadiVet admin')">Report a problem</button>
-  </div>
-
-  <div class="screen" id="chat">
-    <div class="chathead"><div class="back" onclick="openProfile()">←</div><div><b id="chatName">Dr. Chidi Okeke</b><div style="font-size:11px;opacity:.8" id="chatStatus">🟢 Online</div></div></div>
-    <div id="chatLog" style="padding-bottom:120px"></div>
-    <div class="inputbar"><input placeholder="Type a message…" onclick="toast('Chat is encrypted and private')"><button onclick="toast('Message sent')">➤</button></div>
-  </div>
-
-  <div class="screen" id="mylistings">
-    <div class="chathead"><div class="back" onclick="show('profile')">←</div><div><b>My Listings</b><div style="font-size:11px;opacity:.8">Manage what you sell</div></div></div>
-    <div class="provbar">
-      <div>
-        <div class="pinfo" id="mlProvName">GreenField Feeds</div>
-        <div class="psub">Changes go live immediately</div>
-      </div>
-    </div>
-    <button class="btn primary" onclick="openAddListing()">+ Add new listing</button>
-    <div id="mlList"></div>
-  </div>
-
-  <div class="screen" id="addlisting">
-    <div class="chathead"><div class="back" onclick="show('mylistings')">←</div><div><b id="alTitle">Add listing</b></div></div>
-    <div class="field"><label>What is it? (product or service name)</label><input id="alName" placeholder="e.g. Layer feed (25kg)"></div>
-    <div class="field"><label>Category</label>
-      <select id="alCat">
-        <option value="Feeds">Feed</option>
-        <option value="Vaccines">Vaccine</option>
-        <option value="Breeders">Breeding</option>
-        <option value="Vets">Vet service</option>
-      </select>
-    </div>
-    <div class="field"><label>Price (₦)</label><input id="alPrice" type="number" placeholder="e.g. 12000"></div>
-    <div class="field"><label>Stock status</label>
-      <select id="alStock"><option value="in">In stock</option><option value="out">Out of stock</option></select>
-    </div>
-    <button class="btn primary" onclick="saveListing()">Save & publish</button>
-    <div style="text-align:center;font-size:11px;color:var(--muted);padding:0 24px 20px">Your listing will appear in Browse and Padi results right away.</div>
-  </div>
-
-  <div class="screen" id="signup-choice">
-    <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b>Create account</b></div></div>
-    <div class="choose">
-      <h2>Who are you joining as?</h2>
-      <p>Choose the path that fits you. You can switch later.</p>
-      <div class="choice" onclick="startSignup('consumer')">
-        <div class="ci">🐾</div>
-        <div class="ct">I'm a pet owner / consumer</div>
-        <div class="cd">Find vets, feed, vaccines and breeders. Chat, pay and review.</div>
-      </div>
-      <div class="choice" onclick="startSignup('provider')">
-        <div class="ci">🩺</div>
-        <div class="ct">I'm a vet, breeder or producer</div>
-        <div class="cd">List your services and products. Get discovered. Subscribe to stay visible.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="screen" id="signup-consumer">
-    <div class="chathead"><div class="back" onclick="show('signup-choice')">←</div><div><b>Consumer sign-up</b></div></div>
-    <div class="steps"><div class="stepdot on"></div><div class="stepdot on"></div><div class="stepdot"></div></div>
-    <div class="field"><label>Full name</label><input placeholder="e.g. Ada Nwosu"></div>
-    <div class="field"><label>Email</label><input placeholder="you@email.com"></div>
-    <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
-    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location while using the app, so we can show providers near you. You can also type your town instead.</div>
-    <button class="btn primary" onclick="finishSignup('consumer')">Create account</button>
-  </div>
-
-  <div class="screen" id="signup-provider">
-    <div class="chathead"><div class="back" onclick="show('signup-choice')">←</div><div><b>Provider sign-up</b></div></div>
-    <div class="steps"><div class="stepdot on"></div><div class="stepdot on"></div><div class="stepdot"></div></div>
-    <div class="field"><label>Business / provider name</label><input placeholder="e.g. GreenField Feeds"></div>
-    <div class="field"><label>Contact person</label><input placeholder="Full name"></div>
-    <div class="field"><label>Email</label><input placeholder="you@email.com"></div>
-    <div class="field"><label>Phone (verified)</label><input placeholder="080…"></div>
-    <div class="field"><label>Type</label>
-      <select id="provType" onchange="toggleVetFields()">
-        <option value="vet">Vet (clinic)</option>
-        <option value="mobilevet">Mobile vet</option>
-        <option value="feed">Feed producer</option>
-        <option value="vaccine">Vaccine producer</option>
-        <option value="breeder">Breeder</option>
-      </select>
-    </div>
-    <div class="field"><label>Address (pin-drop in app)</label><input placeholder="Street, town, LGA, Enugu"></div>
-    <div class="field" id="radiusField"><label>Service radius (km, for mobile vets)</label><input placeholder="e.g. 10"></div>
-    <div class="field" id="licenseField"><label>License number (where applicable)</label><input placeholder="e.g. VCN/EN/2024/001"></div>
-    <div class="field" id="feeField"><label>Consultation fee (vets only)</label><input placeholder="e.g. 3500"></div>
-    <div class="field" id="listingField"><label>What do you sell? (you can add more after sign-up)</label><textarea rows="2" placeholder="e.g. Layer feed (25kg) — ₦12,000"></textarea></div>
-    <div class="field"><label>Payment account (bank • number)</label><input placeholder="GTB • 0123456789"></div>
-    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location so customers can find you by distance. You can also type your town.</div>
-    <button class="btn primary" onclick="finishSignup('provider')">Submit for verification</button>
-    <div style="text-align:center;font-size:11px;color:var(--muted);padding:0 24px 20px">Your profile will be reviewed by PadiVet admin before it appears in search.</div>
-  </div>
-
-  <div class="screen" id="signup-success">
-    <div class="success">
-      <div class="si" id="succIcon">✓</div>
-      <h2 id="succTitle">Welcome to PadiVet!</h2>
-      <p id="succText">Your account is ready. Start by asking Padi to find a provider near you.</p>
-      <button class="btn primary" style="margin-top:26px" onclick="show('home')">Go to home</button>
-    </div>
-  </div>
-
-  <div class="nav" id="nav">
-    <div class="navitem active" data-t="home" onclick="show('home')"><span class="ni">🏠</span>Home</div>
-    <div class="navitem" data-t="padi" onclick="show('padi')"><span class="ni">🐾</span>Padi</div>
-    <div class="navitem" data-t="browse" onclick="show('browse')"><span class="ni">🛍️</span>Browse</div>
-    <div class="navitem" data-t="messages" onclick="show('messages')"><span class="ni">💬</span>Messages</div>
-    <div class="navitem" data-t="signup-choice" onclick="show('signup-choice')"><span class="ni">👤</span>Profile</div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-</div>
-
-<script>
-  // ===== SPLASH REMOVAL (robust) =====
-  (function hideSplash(){
-    var s = document.getElementById('splash');
-    if(!s) return;
-    var done = false;
-    function kill(){
-      if(done) return; done = true;
-      s.classList.add('hide');
-      setTimeout(function(){ if(s && s.parentNode) s.parentNode.removeChild(s); }, 600);
-    }
-    setTimeout(kill, 2600);
-    setTimeout(kill, 4000);
-    s.addEventListener('click', kill);
-    s.addEventListener('touchstart', kill, {passive:true});
-  })();
-
-  let DATA=[
-    {n:"Dr. Chidi Okeke",t:"Vet Clinic",r:4.8,c:32,on:true,kind:"vet",price:3500,d:2.3,tag:"Vets",acct:"GTB • 0123456789",
-      listings:[{name:"Home visit consultation",p:5000,stock:"in"},{name:"Vaccination service",p:4500,stock:"in"}]},
-    {n:"Dr. Ngozi Eze",t:"Mobile Vet",r:4.9,c:21,on:true,kind:"vet",price:4000,d:4.1,tag:"Mobile Vets",acct:"Access • 0987654321",
-      listings:[{name:"Mobile consultation",p:4000,stock:"in"}]},
-    {n:"GreenField Feeds",t:"Feed Producer",r:4.6,c:18,on:false,kind:"goods",price:12000,d:8.1,tag:"Feeds",acct:"Zenith • 1122334455",
-      listings:[{name:"Layer feed (25kg)",p:12000,stock:"in"},{name:"Broiler starter (25kg)",p:14500,stock:"in"},{name:"Grower mash (50kg)",p:24000,stock:"out"}]},
-    {n:"AgroVax Ltd",t:"Vaccine Producer",r:4.7,c:27,on:true,kind:"goods",price:8500,d:6.4,tag:"Vaccines",acct:"UBA • 5544332211",
-      listings:[{name:"Newcastle vaccine (100 doses)",p:8500,stock:"in"},{name:"Gumboro vaccine (100 doses)",p:9200,stock:"in"}]},
-    {n:"Emeka Breeders",t:"Breeder",r:4.4,c:9,on:false,kind:"goods",price:25000,d:11.2,tag:"Breeders",acct:"First Bank • 9988776655",
-      listings:[{name:"Boer goat (young)",p:25000,stock:"in"},{name:"Broiler chicks (per 10)",p:12000,stock:"in"}]},
-    {n:"Dr. Ifeanyi Obi",t:"Vet Clinic",r:4.5,c:14,on:true,kind:"vet",price:3000,d:3.0,tag:"Vets",acct:"GTB • 1231231234",
-      listings:[{name:"Clinic consultation",p:3000,stock:"in"}]}
-  ];
-  let MY_PROVIDER = DATA[2];
-  let CURRENT_FILTER = "All";
-  const $=id=>document.getElementById(id);
-  let CUR=DATA[0];
-  function fmt(n){return "₦"+Number(n).toLocaleString('en-NG');}
-
-  function show(id){
-    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-    $(id).classList.add('active');
-    document.querySelectorAll('.navitem').forEach(n=>n.classList.toggle('active',n.dataset.t===id));
-    $('nav').style.display=(id==='chat'||id==='addlisting')?'none':'flex';
-    if(id==='browse') renderBrowse();
-    if(id==='mylistings') renderMyListings();
-    window.scrollTo(0,0);
-  }
-  function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),2200);}
-  function pill(on){return on?'<div class="pill on"><span class="dot g"></span>Online</div>':'<div class="pill off"><span class="dot b"></span>Last seen 12 min ago</div>';}
-
-  function priceLine(p){
-    if(p.kind==='vet'){ return `<div class="plabel">Consultation fee</div><div class="pamount consult">${fmt(p.price)}</div>`; }
-    const tag=p.tag==='Feeds'?'Feed price':p.tag==='Vaccines'?'Vaccine price':p.tag==='Breeders'?'Breeding price':'Price';
-    return `<div class="plabel">${tag}</div><div class="pamount goods">From ${fmt(p.price)}</div>`;
-  }
-
-  function card(p){return `<div class="card" onclick="openProfile('${p.n}')">
-    <div class="row"><div class="avatar">${p.n[0]}</div><div style="flex:1">
-      <div class="pname">${p.n}</div>
-      <div class="meta">${p.t} • ${p.r} ★ (${p.c})</div>
-      ${pill(p.on)}
-    </div></div>
-    ${priceLine(p)}
-    <div class="pmeta">${p.d} km away</div></div>`;}
-
-  function empty(msg){return `<div class="empty"><div class="ei">🔍</div><b>${msg}</b>Try another category or ask Padi to broaden your search.</div>`;}
-
-  function renderHome(){
-    const online=DATA.filter(p=>p.on);
-    $('homeOnline').innerHTML=online.length?online.map(card).join(''):empty('No one online right now');
-    $('homeNear').innerHTML=DATA.slice().sort((a,b)=>a.d-b.d).slice(0,3).map(card).join('');
-  }
-
-  function openResults(cat){
-    $('resTitle').textContent=cat==='All'?'All providers':cat;
-    const list=(cat==='All'?DATA:DATA.filter(p=>p.tag===cat)).slice().sort((a,b)=>(b.on-a.on)||(b.r-a.r));
-    $('resList').innerHTML=list.length?list.map(card).join(''):empty('No providers in '+cat+' yet');
-    show('results');
-  }
-
-  function setFilter(cat){ CURRENT_FILTER=cat; document.querySelectorAll('.fchip').forEach(c=>c.classList.toggle('active',c.dataset.cat===cat)); renderBrowse(); }
-
-  function renderBrowse(){
-    let items=[]; DATA.forEach(p=>{ (p.listings||[]).forEach(l=>{ items.push({provider:p,listing:l}); }); });
-    if(CURRENT_FILTER!=='All'){ items=items.filter(it=>it.provider.tag===CURRENT_FILTER); }
-    items.sort((a,b)=>{ const aS=a.listing.stock==='in'?1:0, bS=b.listing.stock==='in'?1:0; if(aS!==bS) return bS-aS; if(a.provider.on!==b.provider.on) return (b.provider.on?1:0)-(a.provider.on?1:0); return b.provider.r-a.provider.r; });
-    if(!items.length){ $('browseList').innerHTML=empty('No listings in this category yet'); return; }
-    $('browseList').innerHTML=items.map(it=>{
-      const p=it.provider, l=it.listing;
-      const badge=l.stock==='in'?'<span class="stockbadge in">In stock</span>':'<span class="stockbadge out">Out of stock</span>';
-      const typeLabel = p.kind==='vet' ? 'Vet service' : (p.tag==='Feeds'?'Feed':p.tag==='Vaccines'?'Vaccine':p.tag==='Breeders'?'Breeding':'Product');
-      return `<div class="listcard" onclick="openProfile('${p.n}')">
-        <div class="lhead"><div><div class="lname">${l.name} ${badge}</div><div class="ltype">${typeLabel}</div></div><div class="lprice2">${fmt(l.p)}</div></div>
-        <div class="lseller"><div class="sav">${p.n[0]}</div><div style="flex:1"><div class="snm">${p.n}</div><div class="smeta">${p.r} ★ • ${p.d} km ${p.on?'• Online':'• Last seen 12m ago'}</div></div></div>
-      </div>`;}).join('');
-  }
-
-  function renderMyListings(){
-    $('mlProvName').textContent=MY_PROVIDER.n;
-    const rows=(MY_PROVIDER.listings||[]).map((l,i)=>{
-      const badge=l.stock==='in'?'<span class="stockbadge in">In stock</span>':'<span class="stockbadge out">Out of stock</span>';
-      return `<div class="mlrow"><div style="flex:1">
-        <div class="mldesc">${l.name} ${badge}</div>
-        <div class="mlsub">${fmt(l.p)}</div>
-        <div class="mlactions"><button onclick="toggleStock(${i})">${l.stock==='in'?'Mark out of stock':'Mark in stock'}</button><button class="del" onclick="deleteListing(${i})">Delete</button></div>
-      </div></div>`;
-    }).join('');
-    $('mlList').innerHTML=rows || '<div class="empty"><div class="ei">📦</div><b>No listings yet</b>Tap "Add new listing" to start.</div>';
-  }
-
-  function toggleStock(i){ const l=MY_PROVIDER.listings[i]; l.stock=l.stock==='in'?'out':'in'; renderMyListings(); toast(l.stock==='in'?'Marked in stock — live in Browse':'Marked out of stock'); }
-  function deleteListing(i){ MY_PROVIDER.listings.splice(i,1); renderMyListings(); toast('Listing deleted'); }
-  function openAddListing(){ $('alTitle').textContent='Add listing'; $('alName').value=''; $('alPrice').value=''; $('alStock').value='in'; $('alCat').value=MY_PROVIDER.tag||'Feeds'; show('addlisting'); }
-
-  function saveListing(){
-    const name=$('alName').value.trim(); const price=parseInt($('alPrice').value); const cat=$('alCat').value; const stock=$('alStock').value;
-    if(!name){toast('Please give it a name');return;} if(!price||price<=0){toast('Please enter a valid price');return;}
-    if(!MY_PROVIDER.listings) MY_PROVIDER.listings=[];
-    MY_PROVIDER.listings.push({name,p:price,stock});
-    if(cat==='Feeds') MY_PROVIDER.tag='Feeds'; else if(cat==='Vaccines') MY_PROVIDER.tag='Vaccines'; else if(cat==='Breeders') MY_PROVIDER.tag='Breeders'; else if(cat==='Vets') MY_PROVIDER.tag='Vets';
-    const inStock=MY_PROVIDER.listings.filter(l=>l.stock==='in').map(l=>l.p);
-    if(inStock.length) MY_PROVIDER.price=Math.min(...inStock);
-    toast('Published — now live in Browse & Padi'); renderHome(); show('mylistings');
-  }
-
-  const MEDICAL=["sick","fever","vomit","diarrhea","diarrhoea","drug","medicine","treat","treatment","dose","dosage","inject","symptom","pain","wound","blood","dying","poison","swollen","limp","cough","what should i give","what can i give","is it sick"];
-  const BLOCKED=["tractor","tricycle","car","phone","laptop","house","land","loan","flight","hotel"];
-  const KNOWN=["vet","vets","doctor","clinic","mobile","feed","feeds","vaccine","vaccines","breeder","breeders","cow","goat","poultry","chicken","dog","cat","online","cheap","price","cost","near","enugu","nsukka","budget","consult","consultation"];
-  function parse(msg){
-    const t=msg.toLowerCase(); const has=arr=>arr.some(w=>t.includes(w));
-    let category=null;
-    if(t.includes("mobile")) category="Mobile Vets";
-    else if(t.includes("vet")||t.includes("doctor")||t.includes("clinic")||t.includes("consult")) category="Vets";
-    else if(t.includes("feed")) category="Feeds";
-    else if(t.includes("vaccine")) category="Vaccines";
-    else if(t.includes("breeder")||t.includes("breed")) category="Breeders";
-    let onlineOnly=t.includes("online")||t.includes("available now")||t.includes("right now");
-    let budget=null;
-    const km=t.match(/(\d{1,3})\s*k\b/); if(km) budget=parseInt(km[1])*1000;
-    const naira=t.match(/(\d{2,3}(?:,\d{3})*)/); if(naira) budget=parseInt(naira[1].replace(/,/g,''));
-    const under=t.includes("under")||t.includes("below")||t.includes("less than")||t.includes("cheap")||t.includes("affordable")||t.includes("budget");
-    return {medical:has(MEDICAL),blocked:has(BLOCKED),known:has(KNOWN),category,onlineOnly,budget:under?budget:null};
-  }
-
-  function reply(msg){
-    const q=parse(msg);
-    if(q.medical){ return {text:"I can't give medical advice — that's for a licensed vet. But here are vets available right now for a quick consultation:", filter:p=>p.tag==="Vets"&&p.on}; }
-    if(q.blocked && !q.known){ return {text:"I can't help with that inside PadiVet — I only find vets, feed, vaccines and breeders. Want me to show providers near you?", filter:()=>DATA.slice(0,3)}; }
-    if(q.onlineOnly){ return {text:"Here's who's online right now — you can chat instantly:", filter:p=>p.on}; }
-    if(q.category){ const b=q.budget; const pw=q.category==="Vets"||q.category==="Mobile Vets"?"consultation fee":"price";
-      return {text:b?`Here are ${q.category.toLowerCase()} within ${fmt(b)} (${pw}), best-rated first:`:`Here are the best-rated ${q.category.toLowerCase()} near you (online first) — ${pw} shown for each:`, filter:p=>p.tag===q.category && (b?p.price<=b:true)}; }
-    if(q.known){ return {text:"Got it — here are the best matches near you (online first):", filter:p=>p.on, fallback:true}; }
-    return {text:"Hmm, I'm not sure what you need. I can find vets, mobile vets, feed, vaccines and breeders. Try: \"vet near me\", \"feed under 10k\", or \"who's online?\".", filter:()=>[]};
-  }
-
-  function sendPadi(){
-    const input=$('padiText'); const msg=input.value.trim(); if(!msg)return; input.value=''; appendUser(msg);
-    const think=document.createElement('div'); think.className='thinking'; think.innerHTML='<span></span><span></span><span></span>&nbsp;Padi is finding…';
-    $('padiLog').appendChild(think); scrollPadi();
-    setTimeout(()=>{ think.remove(); const r=reply(msg);
-      let list=(r.filter?DATA.filter(r.filter):[]).slice().sort((a,b)=>(b.on-a.on)||(b.r-a.r));
-      if(r.fallback && !list.length) list=DATA.slice(0,3);
-      appendPadi(r.text, list);
-    },900);
-  }
-  function quickAsk(msg){ $('padiText').value=msg; sendPadi(); }
-  function appendUser(text){const d=document.createElement('div');d.className='bubble user';d.textContent=text;$('padiLog').appendChild(d);scrollPadi();}
-  function appendPadi(text,list){
-    const d=document.createElement('div'); d.className='bubble'; d.textContent=text; $('padiLog').appendChild(d);
-    if(list && list.length){const wrap=document.createElement('div');wrap.innerHTML=list.map(card).join('');$('padiLog').appendChild(wrap);}
-    else if(list && list.length===0 && text.indexOf("I can't")!==0){ const e=document.createElement('div');e.className='empty';e.innerHTML='<div class="ei">🗺️</div><b>No matches</b>Try widening your area or budget.'; $('padiLog').appendChild(e); }
-    scrollPadi();
-  }
-  function scrollPadi(){setTimeout(()=>window.scrollTo(0,document.body.scrollHeight),50);}
-
-  function openProfile(name){
-    const p=name?DATA.find(x=>x.n===name):CUR; CUR=p||DATA[0];
-    $('profAv').textContent=CUR.n[0]; $('profName').textContent=CUR.n; $('profType').textContent=CUR.t+' • Enugu';
-    $('profStars').textContent=`${CUR.r} ★ (${CUR.c} reviews) • Replies in ~10 min`;
-    $('profStatus').textContent=CUR.on?'🟢 Online':'⚫ Last seen 12 min ago';
-    $('profDist').textContent=CUR.d+' km away'; $('profAcct').textContent=CUR.acct;
-    $('profChatBtn').textContent=CUR.on?'Chat now':'Send message'; $('chatName').textContent=CUR.n;
-    $('chatStatus').textContent=CUR.on?'🟢 Online':'⚫ Last seen 12 min ago';
-    if(CUR.kind==='vet'){
-      $('profPriceBlock').innerHTML=`<div class="pricebox"><div class="plabel">Consultation fee</div><div class="pamount consult">${fmt(CUR.price)}</div><div class="pmeta">Pay per consultation chat</div></div>`;
-    } else {
-      const rows=(CUR.listings||[]).map(l=>{ const badge=l.stock==='in'?'<span class="stockbadge in">In stock</span>':'<span class="stockbadge out">Out of stock</span>';
-        return `<div class="listrow"><div><div class="ldesc">${l.name} ${badge}</div><div class="lsub">Product</div></div><div class="lprice">${fmt(l.p)}</div></div>`; }).join('');
-      $('profPriceBlock').innerHTML=`<div class="pricebox listbox"><div style="padding:14px 16px 8px"><div class="plabel">Products & prices</div></div>${rows}</div>`;
-    }
-    show('profile');
-  }
-
-  function openChat(){
-    const isVet = CUR.kind==='vet';
-    let html = `<div class="msgrow"><div class="msg them">Hello! How can I help you today?</div></div>`;
-    if(isVet){
-      html += `<div class="msgrow"><div class="msg me">My goat has a fever. Consultation fee?</div></div>
-      <div class="msgrow"><div class="msg them">The consultation fee is ${fmt(CUR.price)}. Pay to ${CUR.acct}, then tap Pay & Upload Receipt below.</div></div>
-      <div class="paybox" id="payBox"><h4>💳 Pay consultation fee</h4><div class="what">For: consultation with ${CUR.n}</div>
-        <div class="acct">Bank: <b>${CUR.acct.split(' • ')[0]}</b><br>Account number: <b>${CUR.acct.split(' • ')[1]}</b><br>Amount: <b>${fmt(CUR.price)}</b></div>
-        <button class="pbtn" onclick="confirmPay()">I've paid — upload receipt</button>
-        <div class="hint">PadiVet doesn't handle payments. Money goes directly to the provider. PadiVet doesn't issue refunds.</div></div>`;
-    } else {
-      const first=(CUR.listings||[])[0];
-      html += `<div class="msgrow"><div class="msg me">Do you have ${first.name.toLowerCase()}?</div></div>
-      <div class="msgrow"><div class="msg them">Yes — ${first.name} is ${fmt(first.p)}. Payment goes to ${CUR.acct}. I'll confirm once you pay.</div></div>
-      <div class="paybox" id="payBox"><h4>🛒 Pay for goods</h4><div class="what">For: ${first.name} — ${fmt(first.p)}</div>
-        <div class="acct">Bank: <b>${CUR.acct.split(' • ')[0]}</b><br>Account number: <b>${CUR.acct.split(' • ')[1]}</b><br>Amount: <b>${fmt(first.p)}</b></div>
-        <button class="pbtn" onclick="confirmPay()">I've paid — upload receipt</button>
-        <div class="hint">PadiVet doesn't handle payments. Money goes directly to the provider. PadiVet doesn't issue refunds.</div></div>`;
-    }
-    $('chatLog').innerHTML = html; show('chat');
-  }
-
-  function confirmPay(){
-    const box=$('payBox'); if(!box) return;
-    const isVet = CUR.kind==='vet'; const first=(CUR.listings||[])[0];
-    const amount = isVet ? CUR.price : (first?first.p:0);
-    const what = isVet ? `Consultation with ${CUR.n}` : (first?first.name:'Goods');
-    box.innerHTML='<div style="text-align:center;padding:10px 0;color:var(--muted);font-size:13px">Uploading receipt…</div>';
-    setTimeout(()=>{
-      const log=$('chatLog'); const receipt=document.createElement('div'); receipt.className='receipt';
-      receipt.innerHTML=`<h4>📄 Payment Receipt</h4><p>Amount: ${fmt(amount)}</p><p>For: ${what}</p><p>To: ${CUR.n} • ${CUR.acct}</p><div class="ok" id="rOk">⏳ Awaiting provider confirmation…</div>`;
-      log.appendChild(receipt); window.scrollTo(0,document.body.scrollHeight);
-      setTimeout(()=>{
-        const ok=$('rOk'); if(ok) ok.textContent='✓ Payment received & confirmed';
-        const mrow=document.createElement('div'); mrow.className='msgrow';
-        mrow.innerHTML=isVet?'<div class="msg them">Payment received ✓ Thank you. Let\'s begin the consultation.</div>':'<div class="msg them">Payment received ✓ Thank you. Your order is being prepared.</div>';
-        log.appendChild(mrow); window.scrollTo(0,document.body.scrollHeight); toast('Receipt confirmed by '+CUR.n);
-      },1400);
-    },700);
-  }
-
-  function startSignup(type){ if(type==='consumer') show('signup-consumer'); else show('signup-provider'); }
-  function toggleVetFields(){
-    const t=$('provType').value; const isVet = t==='vet' || t==='mobilevet';
-    $('feeField').style.display = isVet ? 'block' : 'none';
-    $('radiusField').style.display = t==='mobilevet' ? 'block' : 'none';
-    $('listingField').style.display = isVet ? 'none' : 'block';
-  }
-  function finishSignup(type){
-    if(type==='consumer'){ $('succIcon').textContent='🐾'; $('succTitle').textContent='Welcome to PadiVet!'; $('succText').textContent='Your account is ready. Start by asking Padi to find a provider near you.'; }
-    else { $('succIcon').textContent='✅'; $('succTitle').textContent='Submitted for verification'; $('succText').textContent='PadiVet admin will review your profile. Once verified, you can manage listings from your dashboard.'; }
-    show('signup-success');
-  }
-
-  renderHome(); toggleVetFields();
-</script>
-</body>
-</html>
+    <div class="chathead"><div style="
