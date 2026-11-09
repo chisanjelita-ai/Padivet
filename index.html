@@ -10,6 +10,21 @@
 </head>
 <body>
 <div id="phone">
+  <div id="splash">
+  <div class="sq-wrap">
+    <div class="sq">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M50 92c-11 0-20-8-20-18 0-9 8-16 20-16s20 7 20 16c0 10-9 18-20 18z"/>
+        <ellipse cx="28" cy="42" rx="8" ry="11"/>
+        <ellipse cx="44" cy="30" rx="8" ry="12"/>
+        <ellipse cx="62" cy="30" rx="8" ry="12"/>
+        <ellipse cx="78" cy="42" rx="8" ry="11"/>
+      </svg>
+    </div>
+  </div>
+  <div class="brand">PadiVet</div>
+  <div class="tagline">Find your padi. Care for your animals.</div>
+  </div>
 
   <!-- HOME -->
   <div class="screen active" id="home">
@@ -221,6 +236,13 @@
 </div>
 
 <script src="data.js"></script>
+  <script>
+  setTimeout(function(){
+    var s = document.getElementById('splash');
+    if(s) s.classList.add('hide');
+    setTimeout(function(){ if(s && s.parentNode) s.parentNode.removeChild(s); }, 600);
+  }, 2600);
+                              </script>
 <script src="app.js"></script>
 </body>
         </html>
