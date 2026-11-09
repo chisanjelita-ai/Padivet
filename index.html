@@ -4,104 +4,78 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PadiVet</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2b1b5e">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="app">
+<div id="phone">
+
   <div id="splash">
-    <div class="box">
-      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M50 92c-11 0-20-8-20-18 0-9 8-16 20-16s20 7 20 16c0 10-9 18-20 18z"/>
-        <ellipse cx="28" cy="42" rx="8" ry="11"/>
-        <ellipse cx="44" cy="30" rx="8" ry="12"/>
-        <ellipse cx="62" cy="30" rx="8" ry="12"/>
-        <ellipse cx="78" cy="42" rx="8" ry="11"/>
-      </svg>
+    <div class="sq-wrap">
+      <div class="sq">
+        <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M50 92c-11 0-20-8-20-18 0-9 8-16 20-16s20 7 20 16c0 10-9 18-20 18z"/>
+          <ellipse cx="28" cy="42" rx="8" ry="11"/>
+          <ellipse cx="44" cy="30" rx="8" ry="12"/>
+          <ellipse cx="62" cy="30" rx="8" ry="12"/>
+          <ellipse cx="78" cy="42" rx="8" ry="11"/>
+        </svg>
+      </div>
     </div>
     <div class="brand">PadiVet</div>
-    <div class="tag">Find your padi. Care for your animals.</div>
+    <div class="tagline">Find your padi. Care for your animals.</div>
   </div>
 
-  <div class="s on" id="home">
-    <div class="hd"><div class="hi">Good day 👋</div><div class="nm">Welcome to PadiVet</div></div>
-    <div class="grid">
-      <div class="cat" onclick="openResults('Vets')"><div class="i">🩺</div><div class="l">Vets</div></div>
-      <div class="cat" onclick="openResults('Mobile Vets')"><div class="i">🚑</div><div class="l">Mobile Vets</div></div>
-      <div class="cat" onclick="openResults('Feeds')"><div class="i">🌾</div><div class="l">Feeds</div></div>
-      <div class="cat" onclick="openResults('Vaccines')"><div class="i">💉</div><div class="l">Vaccines</div></div>
-      <div class="cat" onclick="openResults('Breeders')"><div class="i">🐐</div><div class="l">Breeders</div></div>
-      <div class="cat" onclick="openResults('Groomers')"><div class="i">✂️</div><div class="l">Groomers</div></div>
+  <div class="screen active" id="home">
+    <div class="top">
+      <div class="toprow">
+        <div><div class="hi">Good day 👋</div><div class="name">Welcome to PadiVet</div></div>
+        <div class="bell" onclick="toast('No new notifications')">🔔<span class="badge"></span></div>
+      </div>
+      <div class="loc" onclick="toast('Location enabled — showing providers near you')">📍 Enugu • change</div>
     </div>
-    <div class="sec">Online now</div>
+    <div class="grid">
+      <div class="cat" onclick="openResults('Vets')"><div class="ico">🩺</div><div class="lbl">Vets</div></div>
+      <div class="cat" onclick="openResults('Mobile Vets')"><div class="ico">🚑</div><div class="lbl">Mobile Vets</div></div>
+      <div class="cat" onclick="openResults('Feeds')"><div class="ico">🌾</div><div class="lbl">Feeds</div></div>
+      <div class="cat" onclick="openResults('Vaccines')"><div class="ico">💉</div><div class="lbl">Vaccines</div></div>
+      <div class="cat" onclick="openResults('Breeders')"><div class="ico">🐐</div><div class="lbl">Breeders</div></div>
+      <div class="cat" onclick="openResults('Groomers')"><div class="ico">✂️</div><div class="lbl">Groomers</div></div>
+    </div>
+    <div class="section">Online now <small>Providers using the app right now</small></div>
     <div id="homeOnline"></div>
-    <div class="sec">Near you</div>
+    <div class="section">Near you <small>Within Enugu</small></div>
     <div id="homeNear"></div>
   </div>
 
-  <div class="s" id="padi">
-    <div class="ch"><div class="bk" onclick="show('home')">←</div><div><b>Padi</b><div style="font-size:11px;opacity:.8">Your in-app assistant</div></div></div>
+  <div class="screen" id="padi">
+    <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b>Padi</b><div style="font-size:11px;opacity:.8">Your in-app assistant</div></div></div>
     <div id="padiLog" style="padding-bottom:100px;padding-top:6px">
-      <div class="bub">Hi, I'm your Padi — your in-app assistant 🐾 Type what you need — I'll find vets, feed, vaccines, breeders and groomers near you by rating, price or distance. I can tell you who's online too.</div>
-      <div class="qrow">
+      <div class="bubble">Hi, I'm your Padi — your in-app assistant 🐾 Type what you need — I'll find vets, feed, vaccines, breeders and groomers near you by rating, price or distance. I can tell you who's online too.</div>
+      <div class="quick">
         <div class="chip" onclick="quickAsk('Best vets near me')">Best vets near me</div>
         <div class="chip" onclick="quickAsk('Who is online now?')">Who's online now?</div>
+        <div class="chip" onclick="quickAsk('Feed under 15000')">Feed under ₦15,000</div>
         <div class="chip" onclick="quickAsk('Groomer near me')">Groomer near me</div>
       </div>
+      <div class="mini">Padi helps you find providers in PadiVet. For medical concerns, consult a vet.</div>
     </div>
-    <div class="pin">
+    <div class="padi-input">
       <input id="padiText" placeholder="Ask Padi anything…" onkeydown="if(event.key==='Enter')sendPadi()">
       <button onclick="sendPadi()">➤</button>
     </div>
   </div>
 
-  <div class="s" id="browse">
-    <div class="ch"><div style="width:20px"></div><div><b>Browse</b><div style="font-size:11px;opacity:.8">Products & services</div></div></div>
-    <div class="fr" id="filterRow">
-      <div class="fc on" data-cat="All" onclick="setFilter('All')">All</div>
-      <div class="fc" data-cat="Feeds" onclick="setFilter('Feeds')">Feed</div>
-      <div class="fc" data-cat="Vaccines" onclick="setFilter('Vaccines')">Vaccines</div>
-      <div class="fc" data-cat="Breeders" onclick="setFilter('Breeders')">Breeding</div>
-      <div class="fc" data-cat="Vets" onclick="setFilter('Vets')">Vet services</div>
-      <div class="fc" data-cat="Groomers" onclick="setFilter('Groomers')">Groomers</div>
+  <div class="screen" id="browse">
+    <div class="chathead"><div style="width:20px"></div><div><b>Browse listings</b><div style="font-size:11px;opacity:.8">Products & services from providers</div></div></div>
+    <div class="filterrow" id="filterRow">
+      <div class="fchip active" data-cat="All" onclick="setFilter('All')">All</div>
+      <div class="fchip" data-cat="Feeds" onclick="setFilter('Feeds')">Feed</div>
+      <div class="fchip" data-cat="Vaccines" onclick="setFilter('Vaccines')">Vaccines</div>
+      <div class="fchip" data-cat="Breeders" onclick="setFilter('Breeders')">Breeding</div>
+      <div class="fchip" data-cat="Vets" onclick="setFilter('Vets')">Vet services</div>
+      <div class="fchip" data-cat="Groomers" onclick="setFilter('Groomers')">Groomers</div>
     </div>
     <div id="browseList" style="padding:6px 0 20px"></div>
   </div>
-
-  <div class="s" id="results">
-    <div class="ch"><div class="bk" onclick="show('home')">←</div><div><b id="resTitle">Results</b></div></div>
-    <div id="resList" style="padding-top:10px"></div>
-  </div>
-
-  <div class="s" id="profile">
-    <div class="ph">
-      <div class="bav" id="profAv">C</div>
-      <div style="font-size:20px;font-weight:800" id="profName">Name</div>
-      <div style="font-size:12px;opacity:.85;margin-top:5px" id="profType">Type</div>
-      <div class="st" id="profStars">Rating</div>
-      <div style="font-size:12px;margin-top:10px" id="profStatus">Status</div>
-    </div>
-    <div id="profPriceBlock"></div>
-    <div class="li"><span>Distance</span><span id="profDist">—</span></div>
-    <div class="li"><span>Payment to</span><span id="profAcct">—</span></div>
-    <button class="btn p" id="profChatBtn" onclick="openChat()">Chat now</button>
-    <button class="btn d" onclick="toast('Report sent')">Report a problem</button>
-  </div>
-
-  <div class="s" id="chat">
-    <div class="ch"><div class="bk" onclick="show('profile')">←</div><div><b id="chatName">Name</b><div style="font-size:11px;opacity:.8" id="chatStatus">Status</div></div></div>
-    <div id="chatLog" style="padding-bottom:100px"></div>
-  </div>
-
-  <div class="nav" id="nav">
-    <div class="ni active" data-t="home" onclick="show('home')"><span class="ico">🏠</span>Home</div>
-    <div class="ni" data-t="padi" onclick="show('padi')"><span class="ico">🐾</span>Padi</div>
-    <div class="ni" data-t="browse" onclick="show('browse')"><span class="ico">🛍️</span>Browse</div>
-    <div class="ni" data-t="profile" onclick="show('profile')"><span class="ico">👤</span>Profile</div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-</div>
-<script src="data.js"></script>
-<script src="app.js"></script>
-</body>
-      </html>
