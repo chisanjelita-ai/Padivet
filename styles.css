@@ -199,3 +199,7 @@ var thinking=document.createElement('div');
 thinking.className='thinking';
 thinking.innerHTML='<span></span><span></span><span></span>&nbsp;Padi is finding…';
 $('padiLog').appendChild(thinking);
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+     }
