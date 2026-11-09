@@ -349,5 +349,5 @@ function finishSignup(type){
 }
 
 // ===== INIT =====
-renderHome();
-if($('provType')) toggleVetFields();
+try { renderHome(); } catch(e) { console.log(e); }
+try { if($('provType')) toggleVetFields(); } catch(e) { console.log(e); }
