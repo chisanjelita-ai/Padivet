@@ -195,3 +195,7 @@ body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#e9e6f4;dis
 .receipt{background:#fff;margin:12px 18px;padding:15px;border-radius:16px;border:2px dashed #0e9f5b;box-shadow:0 2px 8px rgba(43,27,94,.05);}
 .receipt h4{color:#0b7d47;font-size:13px;margin-bottom:8px;}
 .receipt p{font-size:12px;color:#555;margin:3px 0;}
+var thinking=document.createElement('div');
+thinking.className='thinking';
+thinking.innerHTML='<span></span><span></span><span></span>&nbsp;Padi is finding…';
+$('padiLog').appendChild(thinking);
