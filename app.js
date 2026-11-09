@@ -262,10 +262,9 @@ function sendPadi(){
   $('padiLog').appendChild(d);
 
   var thinking=document.createElement('div');
-  thinking.className='thinking';
-  thinking.innerHTML='<span></span><span></span><span></span>&nbsp;Padi is finding…';
-  $('padiLog').appendChild(thinking);
-  window.scrollTo(0,document.body.scrollHeight);
+thinking.className='thinking';
+thinking.innerHTML='<span></span><span></span><span></span>&nbsp;Padi is finding…';
+$('padiLog').appendChild(thinking);
 
   setTimeout(function(){
     thinking.remove();
