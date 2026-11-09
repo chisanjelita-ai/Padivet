@@ -79,3 +79,156 @@
     </div>
     <div id="browseList" style="padding:6px 0 20px"></div>
   </div>
+  <div class="screen" id="results">
+    <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b id="resTitle">Results</b><div style="font-size:11px;opacity:.8">Online first, then rating</div></div></div>
+    <div id="resList" style="padding-top:10px"></div>
+  </div>
+
+  <div class="screen" id="messages">
+    <div class="chathead"><div style="width:20px"></div><div><b>Messages</b><div style="font-size:11px;opacity:.8">Encrypted & private</div></div></div>
+    <div class="card" onclick="openProfile('Dr. Chidi Okeke')">
+      <div class="row"><div class="avatar">C</div><div style="flex:1">
+        <div class="pname">Dr. Chidi Okeke</div>
+        <div class="meta">Receipt confirmed ✓ • 2m ago</div>
+      </div><div class="pill on"><span class="dot g"></span>Online</div></div>
+    </div>
+    <div class="card" onclick="openProfile('GreenField Feeds')">
+      <div class="row"><div class="avatar">G</div><div style="flex:1">
+        <div class="pname">GreenField Feeds</div>
+        <div class="meta">"We deliver to Enugu city…" • 1h ago</div>
+      </div><div class="pill off"><span class="dot b"></span>12m ago</div></div>
+    </div>
+  </div>
+
+  <div class="screen" id="profile">
+    <div class="profhead">
+      <div class="bigav" id="profAv">C</div>
+      <div style="font-size:20px;font-weight:800" id="profName">Dr. Chidi Okeke</div>
+      <div style="font-size:12px;opacity:.85;margin-top:5px" id="profType">Vet Clinic • Enugu</div>
+      <div class="stars" id="profStars">4.8 ★ (32 reviews) • Replies in ~10 min</div>
+      <div style="font-size:12px;margin-top:10px" id="profStatus">🟢 Online</div>
+    </div>
+    <div id="profPriceBlock"></div>
+    <div class="listitem"><span>Distance</span><span id="profDist">2.3 km away</span></div>
+    <div class="listitem"><span>Payment to</span><span id="profAcct">GTB • 0123456789</span></div>
+    <button class="btn primary" id="profChatBtn" onclick="openChat()">Chat now</button>
+    <button class="btn danger" onclick="toast('Report sent to PadiVet admin')">Report a problem</button>
+  </div>
+
+  <div class="screen" id="chat">
+    <div class="chathead"><div class="back" onclick="openProfile()">←</div><div><b id="chatName">Dr. Chidi Okeke</b><div style="font-size:11px;opacity:.8" id="chatStatus">🟢 Online</div></div></div>
+    <div id="chatLog" style="padding-bottom:120px"></div>
+    <div class="inputbar"><input placeholder="Type a message…" onclick="toast('Chat is encrypted and private')"><button onclick="toast('Message sent')">➤</button></div>
+  </div>
+
+  <div class="screen" id="mylistings">
+    <div class="chathead"><div class="back" onclick="show('profile')">←</div><div><b>My Listings</b><div style="font-size:11px;opacity:.8">Manage what you sell</div></div></div>
+    <div class="provbar">
+      <div>
+        <div class="pinfo" id="mlProvName">GreenField Feeds</div>
+        <div class="psub">Changes go live immediately</div>
+      </div>
+    </div>
+    <button class="btn primary" onclick="openAddListing()">+ Add new listing</button>
+    <div id="mlList"></div>
+  </div>
+
+  <div class="screen" id="addlisting">
+    <div class="chathead"><div class="back" onclick="show('mylistings')">←</div><div><b id="alTitle">Add listing</b></div></div>
+    <div class="field"><label>What is it? (product or service name)</label><input id="alName" placeholder="e.g. Layer feed (25kg)"></div>
+    <div class="field"><label>Category</label>
+      <select id="alCat">
+        <option value="Feeds">Feed</option>
+        <option value="Vaccines">Vaccine</option>
+        <option value="Breeders">Breeding</option>
+        <option value="Vets">Vet service</option>
+        <option value="Groomers">Grooming service</option>
+      </select>
+    </div>
+    <div class="field"><label>Price (₦)</label><input id="alPrice" type="number" placeholder="e.g. 12000"></div>
+    <div class="field"><label>Stock status</label>
+      <select id="alStock"><option value="in">In stock / Available</option><option value="out">Out of stock / Unavailable</option></select>
+    </div>
+    <button class="btn primary" onclick="saveListing()">Save & publish</button>
+    <div style="text-align:center;font-size:11px;color:var(--muted);padding:0 24px 20px">Your listing will appear in Browse and Padi results right away.</div>
+  </div>
+
+  <div class="screen" id="signup-choice">
+    <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b>Create account</b></div></div>
+    <div class="choose">
+      <h2>Who are you joining as?</h2>
+      <p>Choose the path that fits you. You can switch later.</p>
+      <div class="choice" onclick="startSignup('consumer')">
+        <div class="ci">🐾</div>
+        <div class="ct">I'm a pet owner / consumer</div>
+        <div class="cd">Find vets, feed, vaccines, breeders and groomers. Chat, pay and review.</div>
+      </div>
+      <div class="choice" onclick="startSignup('provider')">
+        <div class="ci">🩺</div>
+        <div class="ct">I'm a vet, breeder, groomer or producer</div>
+        <div class="cd">List your services and products. Get discovered. Subscribe to stay visible.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="screen" id="signup-consumer">
+    <div class="chathead"><div class="back" onclick="show('signup-choice')">←</div><div><b>Consumer sign-up</b></div></div>
+    <div class="steps"><div class="stepdot on"></div><div class="stepdot on"></div><div class="stepdot"></div></div>
+    <div class="field"><label>Full name</label><input placeholder="e.g. Ada Nwosu"></div>
+    <div class="field"><label>Email</label><input placeholder="you@email.com"></div>
+    <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
+    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location while using the app, so we can show providers near you. You can also type your town instead.</div>
+    <button class="btn primary" onclick="finishSignup('consumer')">Create account</button>
+  </div>
+
+  <div class="screen" id="signup-provider">
+    <div class="chathead"><div class="back" onclick="show('signup-choice')">←</div><div><b>Provider sign-up</b></div></div>
+    <div class="steps"><div class="stepdot on"></div><div class="stepdot on"></div><div class="stepdot"></div></div>
+    <div class="field"><label>Business / provider name</label><input placeholder="e.g. GreenField Feeds"></div>
+    <div class="field"><label>Contact person</label><input placeholder="Full name"></div>
+    <div class="field"><label>Email</label><input placeholder="you@email.com"></div>
+    <div class="field"><label>Phone (verified)</label><input placeholder="080…"></div>
+    <div class="field"><label>Type</label>
+      <select id="provType" onchange="toggleVetFields()">
+        <option value="vet">Vet (clinic)</option>
+        <option value="mobilevet">Mobile vet</option>
+        <option value="feed">Feed producer</option>
+        <option value="vaccine">Vaccine producer</option>
+        <option value="breeder">Breeder</option>
+        <option value="groomer">Groomer</option>
+      </select>
+    </div>
+    <div class="field"><label>Address (pin-drop in app)</label><input placeholder="Street, town, LGA, Enugu"></div>
+    <div class="field" id="radiusField"><label>Service radius (km, for mobile vets & groomers)</label><input placeholder="e.g. 10"></div>
+    <div class="field" id="licenseField"><label>License number (where applicable)</label><input placeholder="e.g. VCN/EN/2024/001"></div>
+    <div class="field" id="feeField"><label>Consultation fee (vets only)</label><input placeholder="e.g. 3500"></div>
+    <div class="field" id="listingField"><label>What do you sell? (you can add more after sign-up)</label><textarea rows="2" placeholder="e.g. Layer feed (25kg) — ₦12,000"></textarea></div>
+    <div class="field"><label>Payment account (bank • number)</label><input placeholder="GTB • 0123456789"></div>
+    <div class="perm"><b>📍 Enable location</b>Allow PadiVet to use your location so customers can find you by distance. You can also type your town.</div>
+    <button class="btn primary" onclick="finishSignup('provider')">Submit for verification</button>
+    <div style="text-align:center;font-size:11px;color:var(--muted);padding:0 24px 20px">Your profile will be reviewed by PadiVet admin before it appears in search.</div>
+  </div>
+
+  <div class="screen" id="signup-success">
+    <div class="success">
+      <div class="si" id="succIcon">✓</div>
+      <h2 id="succTitle">Welcome to PadiVet!</h2>
+      <p id="succText">Your account is ready. Start by asking Padi to find a provider near you.</p>
+      <button class="btn primary" style="margin-top:26px" onclick="show('home')">Go to home</button>
+    </div>
+  </div>
+
+  <div class="nav" id="nav">
+    <div class="navitem active" data-t="home" onclick="show('home')"><span class="ni">🏠</span>Home</div>
+    <div class="navitem" data-t="padi" onclick="show('padi')"><span class="ni">🐾</span>Padi</div>
+    <div class="navitem" data-t="browse" onclick="show('browse')"><span class="ni">🛍️</span>Browse</div>
+    <div class="navitem" data-t="messages" onclick="show('messages')"><span class="ni">💬</span>Messages</div>
+    <div class="navitem" data-t="signup-choice" onclick="show('signup-choice')"><span class="ni">👤</span>Profile</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+                                                                                 </html>
