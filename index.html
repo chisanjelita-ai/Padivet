@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PadiVet</title>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2b1b5e">
 <style>
   :root{
     --purple:#2b1b5e; --purple-2:#3d2a7a;
@@ -14,6 +16,7 @@
   body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#e9e6f4;display:flex;justify-content:center;}
   #phone{width:100%;max-width:420px;min-height:100vh;background:var(--bg);position:relative;overflow-x:hidden;padding-bottom:70px;}
 
+  /* ===== SPLASH ===== */
   #splash{position:fixed;inset:0;max-width:420px;margin:0 auto;background:linear-gradient(160deg,var(--purple),#1a0e3d);z-index:900;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;transition:opacity .5s ease,visibility .5s;}
   #splash.hide{opacity:0;visibility:hidden;pointer-events:none;}
 
@@ -250,7 +253,7 @@
       <div class="cat" onclick="openResults('Feeds')"><div class="ico">🌾</div><div class="lbl">Feeds</div></div>
       <div class="cat" onclick="openResults('Vaccines')"><div class="ico">💉</div><div class="lbl">Vaccines</div></div>
       <div class="cat" onclick="openResults('Breeders')"><div class="ico">🐐</div><div class="lbl">Breeders</div></div>
-      <div class="cat" onclick="openResults('Groomers')"><div class="ico">✂️</div><div class="lbl">Groomers</div></div>
+      <div class="cat" onclick="openResults('All')"><div class="ico">📋</div><div class="lbl">All</div></div>
     </div>
     <div class="section">Online now <small>Providers using the app right now</small></div>
     <div id="homeOnline"></div>
@@ -261,12 +264,12 @@
   <div class="screen" id="padi">
     <div class="chathead"><div class="back" onclick="show('home')">←</div><div><b>Padi</b><div style="font-size:11px;opacity:.8">Your in-app assistant</div></div></div>
     <div id="padiLog" style="padding-bottom:100px;padding-top:6px">
-      <div class="bubble">Hi, I'm your Padi — your in-app assistant 🐾 Type what you need — I'll find vets, feed, vaccines, breeders and groomers near you by rating, price or distance. I can tell you who's online too.</div>
+      <div class="bubble">Hi, I'm your Padi — your in-app assistant 🐾 Type what you need — I'll find vets, feed, vaccines and breeders near you by rating, price or distance. I can tell you who's online too.</div>
       <div class="quick">
         <div class="chip" onclick="quickAsk('Best vets near me')">Best vets near me</div>
         <div class="chip" onclick="quickAsk('Who is online now?')">Who's online now?</div>
         <div class="chip" onclick="quickAsk('Feed under 15000')">Feed under ₦15,000</div>
-        <div class="chip" onclick="quickAsk('Groomer near me')">Groomer near me</div>
+        <div class="chip" onclick="quickAsk('My goat has a fever, what drug should I give?')">My goat has a fever…</div>
       </div>
       <div class="mini">Padi helps you find providers in PadiVet. For medical concerns, consult a vet.</div>
     </div>
@@ -284,7 +287,6 @@
       <div class="fchip" data-cat="Vaccines" onclick="setFilter('Vaccines')">Vaccines</div>
       <div class="fchip" data-cat="Breeders" onclick="setFilter('Breeders')">Breeding</div>
       <div class="fchip" data-cat="Vets" onclick="setFilter('Vets')">Vet services</div>
-      <div class="fchip" data-cat="Groomers" onclick="setFilter('Groomers')">Groomers</div>
     </div>
     <div id="browseList" style="padding:6px 0 20px"></div>
   </div>
@@ -295,4 +297,3 @@
   </div>
 
   <div class="screen" id="messages">
-    <div class="chathead"><div style="
