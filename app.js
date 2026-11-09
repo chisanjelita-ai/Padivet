@@ -1,3 +1,13 @@
+// Hide splash safely
+document.addEventListener("DOMContentLoaded", function() {
+  setTimeout(function(){
+    var s = document.getElementById('splash');
+    if(s) {
+      s.style.opacity = '0';
+      setTimeout(function(){ if(s.parentNode) s.parentNode.removeChild(s); }, 500);
+    }
+  }, 2600);
+});
 // ===== SPLASH REMOVAL (FORCED) =====
 setTimeout(function(){
   var s = document.getElementById('splash');
