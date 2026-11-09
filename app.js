@@ -263,7 +263,7 @@ function sendPadi(){
 
   var thinking=document.createElement('div');
 thinking.className='thinking';
-thinking.innerHTML='<span></span><span></span><span></span>&nbsp;Padi is finding…';
+thinking.innerHTML='<span></span><span></span><span></span>';
 $('padiLog').appendChild(thinking);
 
   setTimeout(function(){
